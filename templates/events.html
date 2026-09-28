@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Events</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <h2>College Events</h2>
+      <a href="/">Home</a>
+      <a href="/events">Events</a>
+      <a href="/add-event">Add Event</a>
+    </nav>
+
+    <div class="container">
+      <h1>Upcoming Events</h1>
+
+      {% if events %} {% for event in events %}
+
+      <div class="card">
+        <h2>{{ event["name"] }}</h2>
+
+        <p>{{ event["description"] }}</p>
+
+        <p><strong>Date:</strong> {{ event["date"] }}</p>
+
+        <p><strong>Venue:</strong> {{ event["venue"] }}</p>
+
+        <p><strong>Organizer:</strong> {{ event["organizer"] }}</p>
+
+        <form action="/register/{{ event['id'] }}" method="POST">
+          <input
+            type="text"
+            name="student_name"
+            placeholder="Student Name"
+            required
+          />
+
+          <input type="email" name="email" placeholder="Email" required />
+
+          <input type="text" name="branch" placeholder="Branch" required />
+
+          <button type="submit">Register</button>
+        </form>
+
+        <a href="/registrations/{{ event['id'] }}"> View Registrations </a>
+
+        <form
+          action="/delete-event/{{ event['id'] }}"
+          method="POST"
+          class="delete-form"
+        >
+          <button type="submit">Delete Event</button>
+        </form>
+      </div>
+
+      {% endfor %} {% else %}
+
+      <p>No events available.</p>
+
+      {% endif %}
+    </div>
+  </body>
+</html>

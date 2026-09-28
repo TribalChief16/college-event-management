@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Registrations</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <h2>College Events</h2>
+      <a href="/">Home</a>
+      <a href="/events">Events</a>
+      <a href="/add-event">Add Event</a>
+    </nav>
+
+    <div class="container">
+      <h1>Registrations</h1>
+
+      <h2>{{ event["name"] }}</h2>
+
+      {% if registrations %} {% for registration in registrations %}
+
+      <div class="card">
+        <p>
+          <strong>Name:</strong>
+          {{ registration["student_name"] }}
+        </p>
+
+        <p>
+          <strong>Email:</strong>
+          {{ registration["email"] }}
+        </p>
+
+        <p>
+          <strong>Branch:</strong>
+          {{ registration["branch"] }}
+        </p>
+      </div>
+
+      {% endfor %} {% else %}
+
+      <p>No registrations yet.</p>
+
+      {% endif %}
+    </div>
+  </body>
+</html>
